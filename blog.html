@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ dark: localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&window.matchMedia('(prefers-color-scheme: dark)').matches), scrolled:false, mobileMenu:false }" :class="{'dark':dark}" x-init="$watch('dark',v=>localStorage.setItem('theme',v?'dark':'light'));window.addEventListener('scroll',()=>scrolled=window.scrollY>20,{passive:true})" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Razan's certifications and achievements."/>
+  <meta name="author" content="Razan"/>
+  <meta property="og:title" content="Certifications — Razan"/>
+  <meta property="og:type" content="website"/>
+  <title>Certifications — Razan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{display:['PT Sans','sans-serif'],body:['DM Sans','sans-serif']},colors:{accent:'#FF6B2B','accent-light':'#FF8F5C'}}}}
+  </script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;}
+    html{font-family:'DM Sans',sans-serif;}
+    h1,h2,h3,h4,h5,h6{font-family:'PT Sans',sans-serif;}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1);}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+    .reveal-delay-1{transition-delay:.08s;}.reveal-delay-2{transition-delay:.16s;}.reveal-delay-3{transition-delay:.24s;}
+    .nav-link{position:relative;}
+    .nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:currentColor;transition:width .25s cubic-bezier(.4,0,.2,1);}
+    .nav-link:hover::after{width:100%;}
+    ::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:#FF6B2B;border-radius:99px;}
+    body{transition:background-color .3s,color .3s;}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4;}
+    .card{transition:transform .3s cubic-bezier(.4,0,.2,1),border-color .2s; height: 100%;}
+    .card:hover{transform:translateY(-3px);}
+    .btn-primary{position:relative;overflow:hidden;}
+    .btn-primary::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:rgba(255,255,255,.18);transform:skewX(-20deg);transition:left .4s cubic-bezier(.4,0,.2,1);}
+    .btn-primary:hover::after{left:160%;}
+    [x-cloak]{display:none!important;}
+    .photo-frame{position:relative;overflow:hidden;background:#e4e4e7;}
+    .photo-frame img{width:100%;height:100%;object-fit:cover;display:block;}
+  </style>
+</head>
+<body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-body antialiased" x-data="{ currentCategory: 'all' }">
+
+  <!-- NAV -->
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+    :class="scrolled?'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md shadow-sm shadow-black/5':'bg-transparent'">
+    <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between" aria-label="Main navigation">
+      <a href="index.html" class="font-display font-bold text-xl tracking-tight z-10">
+        <span class="text-zinc-900 dark:text-white">raz</span><span class="text-accent">an</span>
+      </a>
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium" role="list">
+        <li><a href="index.html#services" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Services</a></li>
+        <li><a href="projects.html" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Work</a></li>
+        <li><a href="index.html#about" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">About</a></li>
+        <li><a href="certifications.html" class="nav-link text-accent font-medium">Certifications</a></li>
+        <li><a href="index.html#contact" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Contact</a></li>
+      </ul>
+      <div class="flex items-center gap-3">
+        <button @click="dark=!dark" class="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+          <svg x-show="!dark" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          <svg x-show="dark" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+        </button>
+        <button @click="mobileMenu=!mobileMenu" class="md:hidden w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800">
+          <svg x-show="!mobileMenu" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg x-show="mobileMenu" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HERO CERTIFICATIONS -->
+    <section class="pt-36 pb-16 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-80 h-80 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="max-w-6xl mx-auto px-6 relative z-10">
+        <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">Verified Skills</p>
+        <h1 class="reveal reveal-delay-1 font-display font-bold text-5xl md:text-6xl text-zinc-900 dark:text-white leading-tight mb-4">Certifications</h1>
+        <p class="reveal reveal-delay-2 text-lg text-zinc-500 dark:text-zinc-400 max-w-xl leading-relaxed">A collection of verified professional credentials, academic milestones, and global specialized badges.</p>
+<!-- 
+        
+        <div class="reveal reveal-delay-3 flex flex-wrap gap-2 mt-8">
+          <button @click="currentCategory='all'" :class="currentCategory==='all'?'bg-accent text-white border-accent':'bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700 hover:border-accent'" class="text-sm px-4 py-1.5 rounded-full border transition-colors">All</button>
+          <button @click="currentCategory='development'" :class="currentCategory==='development'?'bg-accent text-white border-accent':'bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700 hover:border-accent'" class="text-sm px-4 py-1.5 rounded-full border transition-colors">Development</button>
+          <button @click="currentCategory='ui-ux'" :class="currentCategory==='ui-ux'?'bg-accent text-white border-accent':'bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700 hover:border-accent'" class="text-sm px-4 py-1.5 rounded-full border transition-colors">UI/UX Design</button>
+          <button @click="currentCategory='languages'" :class="currentCategory==='languages'?'bg-accent text-white border-accent':'bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700 hover:border-accent'" class="text-sm px-4 py-1.5 rounded-full border transition-colors">Languages</button>
+        </div> -->
+      </div>
+    </section>
+
+    <!-- القسم الأول المميز: إنجاز أكاديمي/مشروع (وليس شهادة كورسات) -->
+   <!-- SECTION: CLEAN MINIMALIST BANNER (IMAGE LEFT, TEXT RIGHT) -->
+    <section class="pb-16" x-show="currentCategory === 'all'">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="reveal rounded-3xl overflow-hidden bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-100 dark:border-zinc-800/80">
+          <div class="grid md:grid-cols-12 items-center gap-0">
+            
+            <!-- الصورة في جهة اليسار (بداية القراءة الإنجليزية) -->
+            <div class="md:col-span-5 h-64 md:h-full min-h-[340px] overflow-hidden">
+              <!-- صورة مودرن ونظيفة جداً تعبر عن البرمجة والتصميم الاحترافي -->
+              <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=900&q=80" alt="Modern clean workspace with code" class="w-full h-full object-cover" loading="lazy"/>
+            </div>
+
+            <!-- الكلام والأزرار في جهة اليمين -->
+            <div class="p-8 sm:p-12 md:col-span-7 flex flex-col justify-center">
+              <span class="text-xs font-mono font-medium text-accent uppercase tracking-widest mb-3 block">Professional Badges</span>
+              
+              <h2 class="font-display font-bold text-2xl sm:text-3xl text-zinc-900 dark:text-white mb-4 leading-tight">
+                Verified Credentials &amp; Industry Standards
+              </h2>
+              
+              <p class="text-zinc-500 dark:text-zinc-400 text-sm sm:text-base leading-relaxed mb-6 max-w-xl">
+                Welcome to my verified gallery. This space presents a curated collection of my professional certificates and technical milestones, confirming the design principles and backend optimization techniques I apply in every system.
+              </p>
+              
+              <div class="flex flex-wrap items-center gap-5">
+                <a href="index.html#contact" class="inline-flex items-center justify-center bg-accent hover:bg-accent-light text-white text-sm font-medium px-6 py-2.5 rounded-full transition-colors">
+                  Get in Touch
+                </a>
+                <a href="projects.html" class="inline-flex items-center gap-1 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-accent transition-colors nav-link">
+                  View My Work →
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRID الشهادات مع التصفية الحركية -->
+    <section class="pb-24">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="grid md:grid-cols-3 gap-6">
+
+         <article class="reveal d1 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+        <div class="pf w-full h-49">
+          <img src="web full stack.jpg" alt="Sanaa University Degree" loading="lazy">
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">Sanaa University</span>
+            <span class="text-xs text-zinc-400">In Progress</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Computer Science Degree</h3>
+          <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">Comprehensive academic foundation in software engineering, advanced algorithms, data structures, and computer systems architecture.</p>
+          <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600 nl">Academic Track</span>
+        </div>
+      </article>
+          <!-- CARD 2 (Development) -->
+         <article class="reveal d2 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+        <div class="pf w-full h-49">
+          <img src="photo_2026-05-22_19-47-32.jpg" alt="freeCodeCamp Certification" loading="lazy">
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">freeCodeCamp</span>
+            <span class="text-xs text-zinc-400">April 12, 2026</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Responsive Web Design</h3>
+          <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">Professional certification mastering modern HTML5, CSS3 typography, flexbox, CSS grid, and building fully accessible, pixel-perfect layout interfaces.</p>
+          <a href="https://www.freecodecamp.org" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-900 dark:text-white nl hover:text-accent transition-colors">Verify Credential →</a>
+        </div>
+      </article>
+
+          <!-- CARD 3 (Languages) -->
+           <article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+        <div class="pf w-full h-49">
+          <img src="photo_2026-05-22_20-02-50.jpg" alt="DevOracle Certification" loading="lazy">
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">DevOracle</span>
+            <span class="text-xs text-zinc-400">April 14, 2026</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Database For Developers</h3>
+          <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">Advanced training focusing on relational database architecture, writing optimized SQL queries, managing data integrity, and structural schema design.</p>
+          <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600 nl">Technical Specialization</span>
+        </div>
+      </article>
+
+
+          <!-- CARD 4 (UI/UX) -->
+          <article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+  <div class="pf w-full h-49">
+    <img src="img/CURSA.jpg.lnk" alt="Build a responsive website with HTML and CSS Certification" loading="lazy">
+  </div>
+  <div class="p-6">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">Cursa</span>
+      <span class="text-xs text-zinc-400">August 17, 2025</span>
+    </div>
+    <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Build a Responsive Website with HTML and CSS</h3>
+    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">A practical course by Kevin Powell focusing on modern frontend web development, mastering responsive layouts, structural HTML semantic tags, and styling with CSS.</p>
+    <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600 nl">Frontend Development</span>
+  </div>
+</article>
+          <!-- CARD 5 (Development) -->
+            <article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+  <div class="pf w-full h-49">
+    <img src="img/photo_٢٠٢٦-٠٥-٢٢_١٩-٥٢-٤١.jpg" alt="Operating Systems and Systems Programming Certification" loading="lazy">
+  </div>
+  <div class="p-6">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">Cursa</span>
+      <span class="text-xs text-zinc-400">November 04, 2025</span>
+    </div>
+    <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Operating Systems and Systems Programming</h3>
+    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">A technical course by John Kubiatowicz focusing on core operating system concepts, process management, memory allocation, concurrency, and low-level systems programming.</p>
+    <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600 nl">Systems Engineering</span>
+  </div>
+</article>
+            
+          <!-- CARD 6 (Development) -->
+
+
+
+<article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+  <div class="pf w-full h-49">
+    <img src="img/photo_2026-05-23_13-41-37.jpg" alt="MySQL Database Certification" loading="lazy">
+  </div>
+  <div class="p-6">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">Cursa</span>
+      <span class="text-xs text-zinc-400">May 23, 2026</span>
+    </div>
+    <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">MySQL Database</h3>
+    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">Comprehensive training focused on relational database management systems, writing efficient SQL operations, performing complex data manipulation, optimizing query execution plans, and establishing data integrity constraints within production environments.</p>
+    <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600 nl">Database Management</span>
+  </div>
+</article>
+
+
+
+<article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+  <div class="pf w-full h-49">
+    <img src="img/photo_2026-05-23_13-51-12.jpg" alt="Complete HTML CSS and Javascript course to become a Front End Developer" loading="lazy">
+  </div>
+  <div class="p-6">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">Cursa</span>
+      <span class="text-xs text-zinc-400">May 23, 2026</span>
+    </div>
+    <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Complete HTML, CSS and JavaScript Course</h3>
+    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">An intensive frontend track focused on building production-ready web applications, covering modern semantic markup, responsive UI layouts, complex styling systems, and dynamic user interactions using core JavaScript programming fundamentals.</p>
+    <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600 nl">Frontend Development</span>
+  </div>
+</article>
+
+<article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+  <div class="pf w-full h-49">
+    <img src="img/photo_2026-05-23_14-11-51.jpg" alt="Basics of Design and Logical Thinking Certification" loading="lazy">
+  </div>
+  <div class="p-6">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">Sana'a University (USF)</span>
+      <span class="text-xs text-zinc-400">December 2023</span>
+    </div>
+    <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Basics of Design & Logical Thinking</h3>
+    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">An introductory training program focused on structural design principles, applying critical logical thinking methodologies to solve complex problems, understanding visual hierarchies, and blending creative layout concepts with analytical analysis.</p>
+    <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600 nl">Design & Logic</span>
+  </div>
+</article>
+
+
+<article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+  <div class="pf w-full h-49">
+    <img src="img/photo_2026-05-23_13-52-22.jpg" alt="Beginner English Language Diploma Certification" loading="lazy">
+  </div>
+  <div class="p-6">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">New Creative Zone</span>
+      <span class="text-xs text-zinc-400">March 05, 2023</span>
+    </div>
+    <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Beginner English Language Diploma</h3>
+    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">An intensive academic training program consisting of 300 foundational training hours focused on mastering core English communication skills, language grammar, and essential vocabulary, completed with an overall grade of Excellent (100%).</p>
+    <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600 nl">Language Proficiency</span>
+  </div>
+</article>
+
+<article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+  <div class="pf w-full h-49">
+    <img src="img/photo_٢٠٢٦-٠٥-٢٣_١٣-٠٥-٤٦.jpg" alt="Academic Excellence Certification - Faculty of Computer Science" loading="lazy">
+  </div>
+  <div class="p-6">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">Faculty of Computer Science</span>
+      <span class="text-xs text-zinc-400">Academic Year 1446H</span>
+    </div>
+    <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Academic Excellence Award (1st Place)</h3>
+    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">An official certificate of appreciation awarded by the Deanship of the Faculty of Computer Science for outstanding academic achievement, securing the 1st place rank in the Computer Science department during the first academic year.</p>
+    <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600 nl">Academic Achievement</span>
+  </div>
+</article>
+
+<article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+  <div class="pf w-full h-49">
+    <img src="img/photo_٢٠٢٦-٠٥-٢٣_١٢-٤٨-١٧.jpg" alt="Educational Recognition Award - High School Academic Competition" loading="lazy">
+  </div>
+  <div class="p-6">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">Educational Administration - Bajil</span>
+      <span class="text-xs text-zinc-400">Academic Year 1443H</span>
+    </div>
+    <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">High School Academic Competition Award</h3>
+    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">An official honorary certificate awarded by the Ministry of Education for outstanding performance and contribution to Al-Khansa School's team, securing a top winning position in the high school academic competitions.</p>
+    <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600 nl">Early Achievements</span>
+  </div>
+</article>
+
+<article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+  <div class="pf w-full h-49">
+    <img src="img/photo_٢٠٢٦-٠٥-٢٣_١٣-٠٤-٤٩.jpg" alt="High School Excellence Honor Certification" loading="lazy">
+  </div>
+  <div class="p-6">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">Al-Khansa Secondary School</span>
+      <span class="text-xs text-zinc-400">High School Track</span>
+    </div>
+    <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">High School Excellence & Honor Award</h3>
+    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">An official honorary certificate of appreciation presented by the school administration and directorate of education, recognizing outstanding dedication and attaining the degree of excellence during the high school education track.</p>
+    <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600 nl">Honorary Awards</span>
+  </div>
+</article>
+
+<article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+  <div class="pf w-full h-49">
+    <img src="img/photo_٢٠٢٦-٠٥-٢٣_١٢-٤٧-٣٢.jpg" alt="Scientific Competition Excellence Award" loading="lazy">
+  </div>
+  <div class="p-6">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">Al-Khansa School & Ministry Office</span>
+      <span class="text-xs text-zinc-400">Academic Year 1443H</span>
+    </div>
+    <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Scientific Methodology Competition Award</h3>
+    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">An official honorary certificate of appreciation presented in recognition of outstanding academic distinction and excellence, securing a winning position in the specialized scientific methodology competition during the secondary education track.</p>
+    <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600 nl">Academic Honors</span>
+  </div>
+</article>
+
+<article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+  <div class="pf w-full h-49">
+    <img src="img/photo_٢٠٢٦-٠٥-٢٣_١٢-٤٨-٠٦.jpg" alt="High School Academic Excellence - 1st Place Rank Certification" loading="lazy">
+  </div>
+  <div class="p-6">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">Al-Khansa Secondary School</span>
+      <span class="text-xs text-zinc-400">Gen-2022</span>
+    </div>
+    <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Academic Excellence Certificate (1st Place)</h3>
+    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">An official honorary certificate of appreciation awarded by the school administration, recognizing exceptional academic dedication and securing the 1st place rank during the senior high school education track.</p>
+    <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600 nl">Honorary Awards</span>
+  </div>
+</article>
+
+ 
+<article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+  <div class="pf w-full h-49">
+    <img src="img/photo_٢٠٢٦-٠٥-٢٣_١٣-٠٥-١٩.jpg" alt="Festival Success & Collaboration Award" loading="lazy">
+  </div>
+  <div class="p-6">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">Al-Majd Private Schools</span>
+      <span class="text-xs text-zinc-400">April 2013</span>
+    </div>
+    <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Festival Success & Collaboration Award</h3>
+    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">An official certificate of appreciation awarded by the school administration, recognizing prominent efforts, outstanding dedication, and active collaboration in successfully organizing the activities of the Second Cultural Festival.</p>
+    <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600 nl">Honorary Awards</span>
+  </div>
+</article>
+
+
+<article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+  <div class="pf w-full h-49">
+    <img src="img/photo_٢٠٢٦-٠٥-٢٣_١٢-٤٢-٣٠.jpg" alt="First Childhood Festival Contribution Award" loading="lazy">
+  </div>
+  <div class="p-6">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">Al-Majd Private Schools</span>
+      <span class="text-xs text-zinc-400">Gen 2011</span>
+    </div>
+    <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">First Childhood Festival Contribution Award</h3>
+    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">An early honorary certificate of appreciation presented by the primary school sector, recognizing effective participation and constructive contribution to the success of the First Childhood Festival activities.</p>
+    <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600 nl">Honorary Awards</span>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-zinc-100 dark:border-zinc-900">
+    <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-zinc-400">© <span id="year"></span> Eliott. All rights reserved.</p>
+      <p class="text-xs text-zinc-500">Built with Tailwind CSS &amp; Alpine.js</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);} });
+    },{threshold:.05,rootMargin:'0px 0px -20px 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+  </script>
+
+</body>
+</html>
