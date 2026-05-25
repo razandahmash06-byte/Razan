@@ -225,7 +225,129 @@
       <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600">Desktop Application</span>
     </div>
 </article>
+
+<article class="reveal d2 group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent transition-all duration-300 flex flex-col justify-between">
+  <div>
+    <div class="pf w-full h-54 relative overflow-hidden" x-data="{ currentSlide: 1, totalSlides: 3 }">
+      <img x-show="currentSlide === 1" src="img/‏‏لقطة الشاشة (757).png" alt="Programming Academy Dashboard Screen 1" class="w-full h-full object-cover">
+      <img x-show="currentSlide === 2" src="img/‏‏لقطة الشاشة (758).png" alt="Courses Catalog Screen 2" class="w-full h-full object-cover" x-cloak>
+      <img x-show="currentSlide === 3" src="img/‏‏لقطة الشاشة (759).png" alt="Interactive Coding Editor Screen 3" class="w-full h-full object-cover" x-cloak>
+
+      <div class="absolute inset-0 flex items-center justify-between px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/10 pointer-events-none">
+        <button @click="currentSlide = currentSlide === 1 ? totalSlides : currentSlide - 1" class="w-8 h-8 rounded-full bg-white/80 dark:bg-zinc-900/80 backdrop-blur flex items-center justify-center text-zinc-800 dark:text-white pointer-events-auto hover:bg-accent hover:text-white transition-colors shadow">←</button>
+        <button @click="currentSlide = currentSlide === totalSlides ? 1 : currentSlide + 1" class="w-8 h-8 rounded-full bg-white/80 dark:bg-zinc-900/80 backdrop-blur flex items-center justify-center text-zinc-800 dark:text-white pointer-events-auto hover:bg-accent hover:text-white transition-colors shadow">→</button>
+      </div>
+
+      <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+        <template x-for="i in totalSlides">
+          <span class="w-2 h-2 rounded-full transition-colors" :class="currentSlide === i ? 'bg-accent' : 'bg-white/50'"></span>
+        </template>
+      </div>
+    </div>
+
+    <div class="p-6">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">E-Learning & AI</span>
+        <span class="text-xs text-zinc-400">HTML5 / CSS3 / JS</span>
+      </div>
+      <a href="case-study.html">
+        <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">AI & Programming Academy</h3>
+      </a>
+      <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+        A premium, responsive learning platform designed for tech academies. Features a modern dashboard interface, dynamic course catalog filtering, an intuitive registration workflow, interactive sticky navigation, and animated components optimized for seamless educational experiences.
+      </p>
+    </div>
+  </div>
+  <div class="px-6 pb-6">
+    <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600">Full Frontend Web Application</span>
+  </div>
+</article>
+
+
+<article class="reveal d1 group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent transition-all duration-300 flex flex-col justify-between">
+    <div>
+      <div class="pf w-full h-54 overflow-hidden bg-black flex items-center justify-center">
+        <img src="img/Gemini_Generated_Image_96l6xi96l6xi96l6.gif" alt="Python Hospital Billing System" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+      </div>
+      
+      <div class="p-6">
+        <div class="flex flex-wrap gap-2 mb-3">
+          <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">Python (CLI)</span>
+          <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 px-2.5 py-1 rounded-full">OOP</span>
+          <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 px-2.5 py-1 rounded-full">Data Processing</span>
+        </div>
+        
+     
+          <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Hospital Billing System</h3>
+          
+        <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+          A Python console application designed to manage and calculate medical invoices. It processes costs for hospital stays and medical procedures, and applies dynamic insurance discounts based on patient data.
+        </p>
+      </div>
+    </div>
+    
+    <div class="px-6 pb-6">
+      <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600">Python Console Application</span>
+    </div>
+</article>
+
+
+
+
+<article class="reveal d1 group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent transition-all duration-300 flex flex-col justify-between">
+    <div>
+      <div class="pf w-full h-54 overflow-hidden bg-black flex items-center justify-center">
+        <img src="img/Gemini_Generated_Image_9tuxsm9tuxsm9tux.gif" alt="C++ Electronics Store Management System" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+      </div>
+      
+      <div class="p-6">
+        <div class="flex flex-wrap gap-2 mb-3">
+          <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">C++ (CLI)</span>
+          <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 px-2.5 py-1 rounded-full">OOP</span>
+          <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 px-2.5 py-1 rounded-full">File Handling</span>
+        </div>
+        
+        <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Electronics Store Management System</h3>
+          
+        <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+          A C++ console application developed to manage electronics store inventory and sales. It handles product stock tracking, generates sales invoices, and uses file handling to save and persist all transaction data locally.
+        </p>
+      </div>
+    </div>
+    
+    <div class="px-6 pb-6">
+      <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600">C++ Console Application</span>
+    </div>
+</article>
          
+
+
+
+<article class="reveal d1 group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent transition-all duration-300 flex flex-col justify-between">
+    <div>
+      <div class="pf w-full h-54 overflow-hidden bg-black flex items-center justify-center">
+        <img src="img/Gemini_Generated_Image_zie5x0zie5x0zie5.gif" alt="C++ Phone Lock Simulator Stack DS" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+      </div>
+      
+      <div class="p-6">
+        <div class="flex flex-wrap gap-2 mb-3">
+          <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">C++ (CLI)</span>
+          <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 px-2.5 py-1 rounded-full">Data Structures</span>
+          <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 px-2.5 py-1 rounded-full">Stack (LIFO)</span>
+        </div>
+        
+        <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">Phone Lock Try Simulator</h3>
+          
+        <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+          A C++ console simulator that replicates a phone screen lock system using the Stack data structure. It pushes failed passcode attempts onto the stack to track history, counts consecutive tries, and triggers a temporary security lock when the limit is exceeded.
+        </p>
+      </div>
+    </div>
+    
+    <div class="px-6 pb-6">
+      <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 dark:text-zinc-600">C++ Console Application</span>
+    </div>
+</article>
         </div>
       </div>
     </section>
